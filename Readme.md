@@ -32,7 +32,7 @@ The community-enhanced version can easily be installed next to a regular Symboli
 This package can be installed for Python >3.5 using `pip`:
 
 ```sh
-pip install symbolica
+pip install symbolica-community
 ```
 
 or can be manually built using `maturin`:
