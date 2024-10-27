@@ -12,9 +12,10 @@ rust-version = "1.73"
 version = "0.1.0"
 
 [features]
-vakint = ["dep:vakint"]
-default = ["vakint"]
+default = ["vakint", "spenso"]
 
+vakint = ["dep:vakint"]
+spenso = ["dep:spenso"]
 [profile.release]
 codegen-units = 1
 lto = true
@@ -23,11 +24,24 @@ lto = true
 inherits = "dev"
 opt-level = 3
 
+[[bin]]
+name = "stub_gen"
+doc = false
+
 [lib]
 name = "symbolica_community"
 crate-type = ["lib", "cdylib"]
 
 [dependencies]
 symbolica = { version = "0.13.0", features = ["python_no_module"] }
-pyo3 = { version = "0.22.0", features = ["abi3-py37"] }
+pyo3 = { version = "0.22.0", features = ["abi3-py37", "anyhow", "num-complex"] }
+
+anyhow = "*"
 vakint = { git = "https://github.com/alphal00p/vakint", branch = "main", optional = true }
+spenso = { version = "0.4.1", optional = true, features = ["shadowing"] }
+itertools = "0.13.0"
+delegate = "0.13.1"
+auto_enums = "0.8.6"
+thiserror = "1.0.65"
+pyo3-stub-gen = "0.6.0"
+env_logger = "0.11.5"

@@ -6,6 +6,9 @@ use vakint::{
     NumericalEvaluationResultWrapper, VakintEvaluationMethodWrapper, VakintExpressionWrapper,
     VakintWrapper,
 };
+#[cfg(feature = "spenso")]
+pub mod tensors;
+
 
 use pyo3::{
     pyfunction,
@@ -23,6 +26,11 @@ fn python_trace(a: PythonExpression) -> PythonExpression {
 pub(crate) fn initialize(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.getattr("Expression")?
         .setattr("trace", wrap_pyfunction!(python_trace, m)?)?;
+
+    #[cfg(feature = "spenso")]
+    {
+        tensors::initialize_spenso(m)?;
+    }
 
     #[cfg(feature = "vakint")]
     {
